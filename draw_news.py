@@ -142,7 +142,7 @@ def main():
     d.text((MARGIN, 240), "A 'PEACE DECLARATION'", font=head, fill=INK)
 
     body = font(SANS, 20)
-    lead_text = ("After 105 minutes at Kylin Villa, the first three-way meeting of "
+    lead_text = ("After 90 minutes at Kylin Villa, the first three-way meeting of "
                  "the three largest nuclear powers ended with a four-point "
                  "declaration — UN reform, more oil, ICC limits, nuclear-risk "
                  "talks. No deal on Ukraine or Iran.")
