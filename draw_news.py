@@ -4,8 +4,12 @@
 A one-page newspaper front page rendered with Pillow: masthead and date
 bar, the Trump-Xi-Putin summit in Shenzhen as the lead story (with the
 three flags drawn from code), GTA VI's launch, Anthropic's record IPO,
-the ICJ verdict due in The Hague, a tanker struck in the Strait of
-Hormuz, and a world-news ticker along the bottom.
+the ICJ's genocide verdict in The Hague, a tanker struck in the Strait
+of Hormuz, and a world-news ticker along the bottom.
+
+Evening refresh: every "due today" item is replaced with its outcome —
+the summit's four-point declaration, the ICJ's guilty verdict, GTA VI's
+launch-day numbers, and ANT's first trades.
 
 Output: entry.png next to this script, 1024x1024, under 1 MiB.
 Run: python3 draw_news.py
@@ -134,14 +138,14 @@ def main():
     kicker = font(SANS_BOLD, 20)
     d.text((MARGIN, 160), "THE SHENZHEN SUMMIT", font=kicker, fill=RED)
     head = font(SERIF_BOLD, 47)
-    d.text((MARGIN, 186), "TRUMP, XI AND PUTIN MEET", font=head, fill=INK)
-    d.text((MARGIN, 240), "IN SHENZHEN TODAY", font=head, fill=INK)
+    d.text((MARGIN, 186), "TRUMP, XI AND PUTIN SIGN", font=head, fill=INK)
+    d.text((MARGIN, 240), "A 'PEACE DECLARATION'", font=head, fill=INK)
 
     body = font(SANS, 20)
-    lead_text = ("The first three-way meeting of the leaders of the three largest "
-                 "nuclear powers. Arms control tops the agenda, with a Trump–Xi "
-                 "lunch and a Trump–Putin one-on-one to follow. No breakthrough "
-                 "is expected.")
+    lead_text = ("After 105 minutes at Kylin Villa, the first three-way meeting of "
+                 "the three largest nuclear powers ended with a four-point "
+                 "declaration — UN reform, more oil, ICC limits, nuclear-risk "
+                 "talks. No deal on Ukraine or Iran.")
     end_y = text_block(d, MARGIN, 304, lead_text, body, 580, 27)
 
     fx, fw, fh, gap = 640, 112, 75, 8
@@ -173,10 +177,10 @@ def main():
     badge_font = font(SANS_BOLD, 26)
     bw = d.textlength("99", font=badge_font)
     d.text((bx - bw / 2, by - 17), "99", font=badge_font, fill=NAVY)
-    gta = ("Midnight-local rollout on PS5 and Xbox Series X|S, $79.99. Set in "
-           "Leonida's Vice City, starring Jason Duval and Lucia Caminos. A 99 "
-           "Metascore (147 reviews); IGN and GameSpot both 10/10. About 2.3m "
-           "watched on Twitch; pre-orders near $1.6bn, some 17m copies.")
+    gta = ("Launched at midnight local time on PS5 and Xbox Series X|S, "
+           "$79.99. Set in Leonida's Vice City, starring Jason Duval and Lucia "
+           "Caminos. A 99 Metascore (147 reviews); IGN and GameSpot both 10/10. "
+           "Sensor Tower: 17.1m pre-orders, about $1.65bn.")
     text_block(d, left_x, 540, gta, mid_body, col_w, 26)
 
     d.text((right_x, 430), "MARKETS", font=kicker, fill=RED)
@@ -187,28 +191,28 @@ def main():
     chart = [(815, 534), (848, 520), (880, 528), (912, 510), (940, 496), (968, 486)]
     d.line(chart, fill=GREEN, width=3, joint="curve")
     d.polygon([(968, 486), (954, 490), (964, 500)], fill=GREEN)
-    ipo = ("ANT starts trading on Nasdaq today in the biggest IPO ever. Priced "
-           "at $83 a share on Wednesday — above the $70–78 range — and upsized "
-           "to 980 million shares, raising about $81.3bn at a roughly $1.5 "
-           "trillion fully diluted valuation.")
+    ipo = ("ANT began trading on Nasdaq today in the biggest IPO ever. Priced "
+           "at $83 a share — above the $70–78 range — 980 million shares "
+           "raised about $81.3bn at a $1.5 trillion valuation. First trade "
+           "indicated 20%–26% above the offer price.")
     text_block(d, right_x, 540, ipo, mid_body, col_w, 26)
 
     d.line([(MARGIN, 710), (W - MARGIN, 710)], fill=INK, width=1)
 
     # ---------- third row: ICJ verdict / Hormuz tanker ----------
     d.line([(512, 720), (512, 886)], fill=GREY, width=1)
-    small_head = font(SERIF_BOLD, 25)
+    small_head = font(SERIF_BOLD, 23)
     d.text((left_x, 720), "THE HAGUE", font=kicker, fill=RED)
     d.text((right_x, 720), "THE GULF", font=kicker, fill=RED)
-    d.text((left_x, 746), "GENOCIDE VERDICT DUE TODAY", font=small_head, fill=INK)
+    d.text((left_x, 746), "MYANMAR GUILTY OF GENOCIDE", font=small_head, fill=INK)
     d.text((right_x, 746), "TANKER STRUCK IN HORMUZ", font=small_head, fill=INK)
-    icj = ("The ICJ rules at 10:00 today (16:00 WIB) in Gambia v. Myanmar, the "
-           "Rohingya case filed in 2019. It could be the first time the court "
-           "finds a state responsible for genocide.")
+    icj = ("The ICJ ruled 9–6 that Myanmar committed genocide against the "
+           "Rohingya in 2017 — the first time the court has found a state "
+           "responsible. It ordered reparations.")
     text_block(d, left_x, 782, icj, mid_body, col_w, 26)
     hormuz = ("A tanker was hit overnight — an engine-room strike 6 nautical "
-              "miles north of Khasab; the crew is safe, UKMTO reports. The "
-              "Crimea bridge closed again after another attack.")
+              "miles north of Khasab; the crew is safe. Iran claims two "
+              "supertankers hit mines; the strait is effectively closed.")
     text_block(d, right_x, 782, hormuz, mid_body, col_w, 26)
 
     # ---------- ticker ----------
@@ -216,14 +220,12 @@ def main():
     tick_font = font(SANS_BOLD, 18)
     tick_head = "AROUND THE WORLD"
     items = [
-        "Israel's first ground operation past Gaza's 'yellow line' since the "
-        "Oct 2025 ceasefire",
+        "Israel's first ground op past Gaza's 'yellow line' since the "
+        "ceasefire",
         "EU proposes €45bn loan for Ukraine",
-        "Fed minutes: rates held, further hikes eyed",
-        "House Democrats nominate Hakeem Jeffries for Speaker, 251–11; "
-        "vote Jan 3",
-        "Ethiopia–Eritrea forces mass on the border",
-        "Cyclone Akvan nears Odisha, India",
+        "House Democrats pick Jeffries for Speaker, 251–11; vote Jan 3",
+        "Crimea bridge hit a third time in a week",
+        "Bangladesh violence hits 28 districts; Yunus home torched",
     ]
     ticker_text = tick_head + "  ·  " + "  ·  ".join(items)
     lines = wrap(d, ticker_text, tick_font, W - 2 * MARGIN)
